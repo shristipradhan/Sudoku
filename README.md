@@ -1,5 +1,4 @@
 Sudoku
 ======
 
-Generates 9x9 Sudoku puzzle
-Test
+C++ program to generate 9x9 Sudoku puzzle
