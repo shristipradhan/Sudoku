@@ -13,24 +13,26 @@ using namespace std;
 
 class answer
 {
-public:
-    answer(){}
-    ~answer(){}
-    int a, b, c, d, p, pos;
-    int x[3][3][3][3][10];
-    int i, j;
-    int ans1[9][9];
-    void move();
-    void generate();
-    void backtrack();
-    void regenerate();
-    void destroy();
-    void antidestroy();
-    void final();
-    void opt();
-    void display();
-    void copy();
-    void prob();
+    public:
+        answer(){}
+        ~answer(){}
+        void move();
+        void generate();
+        void backtrack();
+        void regenerate();
+        void destroy();
+        void antidestroy();
+        void final();
+        void opt();
+        void display();
+        void copy();
+        void prob();
+
+    private:
+        int a, b, c, d, p, pos;
+        int x[3][3][3][3][10];
+        int i, j;
+        int ans1[9][9];
 };
 
 // To fill probability in each square
@@ -39,19 +41,17 @@ void answer::prob()
 	for(a = 0; a < 3; a++)
 	{
 		for(c = 0; c < 3; c++)
-            
 		{
 			for(b = 0; b < 3; b++)
 			{
 				for(d = 0; d < 3; d++)
 				{
                     for(p = 0;p < 10; p++)
-                    
+                    {
                         x[a][b][c][d][p] = p;
-                    
+                    }
 				}
 			}
-            
 		}
 	}
     
@@ -92,8 +92,8 @@ void answer::opt()
                 flag=1;
                 break;
             }
-            
 		}
+
 		if(flag == 1)
 		{
 			p = (rand() % 9) + 1;
@@ -103,11 +103,11 @@ void answer::opt()
             }
 			opt();
 		}
+
 		if(flag == 0)
 		{
 			backtrack();
 		}
-        
 	}
 }
 
@@ -120,42 +120,52 @@ void answer::destroy()
     for(; u < 3; u++)
 	{
 		for(; v < 3; v++)
-            
         {
             if(x[a][b][u][v][t] > 0)
+            {
                 x[a][b][u][v][t] = 0;
+            }
             else
-                
+            {
                 x[a][b][u][v][p]--;
-            
+            }
         }
         
         if(v > 2)
-            v=0;
-        
+        {
+            v = 0;
+        }
 	}
-    
-    for(m = b+1; m < 3; m++)                  // Eliminates prob in whole row
+
+    // Eliminates prob in whole row
+    for(m = b+1; m < 3; m++)               
     {
 		for(n = 0; n < 3; n++)
 		{
             if(x[a][m][c][n][p] > 0)
+            {
 				x[a][m][c][n][p] = 0;
+            }
             else
+            {
 				x[a][m][c][n][p]--;
-            
+            }
 		}
     }
-    
-    for(r = a+1; r < 3; r++)			 // Eliminates prob in whole column
+
+    // Eliminates prob in whole column
+    for(r = a+1; r < 3; r++)
     {
         for(s = 0; s < 3; s++)
         {
             if(x[r][b][s][d][p] > 0)
+            {
                 x[r][b][s][d][p] = 0;
+            }
             else
+            {
                 x[r][b][s][d][p]--;
-            
+            }
         }
     }
 }
@@ -265,49 +275,58 @@ void answer::antidestroy()
     int col = b;
     u = c;
     v = d+1;
+
     for(; u < 3; u++)
 	{
 		for(; v < 3; v++)
-            
         {
             if(x[row][col][u][v][pos] == 0)
+            {
                 x[row][col][u][v][pos] = pos;
+            }
             else
-                
+            {    
                 x[a][b][u][v][pos]++;
+            }
         }
         
         if(v > 2)
+        {
             v = 0;
-        
+        }
 	}
     
-    for(m = b+1; m < 3; m++)                  // Eliminates prob in whole row
+    // Eliminates prob in whole row
+    for(m = b+1; m < 3; m++) 
     {
 		for(n = 0; n < 3; n++)
 		{
             if(x[a][m][c][n][pos] == 0)
+            {
 				x[a][m][c][n][pos] = pos;
+            }
             else
+            {
 				x[a][m][c][n][pos]++;
-            
+            }
 		}
     }
     
-    
-    for(r = a+1; r < 3; r++)			 // Eliminates prob in whole column
+    // Eliminates prob in whole column
+    for(r = a+1; r < 3; r++)
     {
         for(s = 0; s < 3; s++)
         {
             if(x[r][b][s][d][pos] == 0)
+            {
                 x[r][b][s][d][pos] = pos;
+            }
             else
+            {
                 x[r][b][s][d][pos]++;
-            
-            
+            }
         }
     }
-    
 }
 
 void answer::copy()
@@ -337,7 +356,6 @@ void answer::display()
         }
         cout << endl;
     }
-    
 }
 
 int main()
